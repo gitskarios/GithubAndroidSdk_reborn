@@ -1,0 +1,18 @@
+language: java
+jdk:
+  - oraclejdk7
+  - oraclejdk8
+  - openjdk7
+
+before_install:
+ - chmod +x gradlew
+
+env:
+  matrix:
+    - COMPILE_METHOD = build
+    - COMPILE_METHOD = test
+    - COMPILE_METHOD = cobertura
+    - COMPILE_METHOD = coveralls
+
+after_success:
+ - ./gradlew $COMPILE_METHOD
