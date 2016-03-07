@@ -41,7 +41,7 @@ publish {
 
 dependencies {
     testCompile 'junit:junit:4.12'
-    testCompile 'org.assertj:assertj-core:3.3.0'
+    testCompile 'org.assertj:assertj-core:2.3.0'
     testCompile 'org.mockito:mockito-all:1.10.19'
 }
 
