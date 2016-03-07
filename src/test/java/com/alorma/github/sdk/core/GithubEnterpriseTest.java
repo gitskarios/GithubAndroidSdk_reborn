@@ -12,7 +12,8 @@ public class GithubEnterpriseTest {
     private static final String HOSTNAME_HTTP = "http://alorma.github.io";
     private static final String HOSTNAME_NO_SCHEME = "alorma.github.io";
     private static final String HOSTNAME_SLASH = "https://alorma.github.io/";
-    private static final String API_ENDPOINT = "https://alorma.github.io/api/v3";
+    private static final String API_ENDPOINT_API_PATH = "https://alorma.github.io/api";
+    private static final String VALID_API_ENDPOINT = "https://alorma.github.io/api/v3";
     private static final String TYPE = "github-enterprise";
 
     @Test(expected = NullPointerException.class)
@@ -62,7 +63,7 @@ public class GithubEnterpriseTest {
         ApiClient apiClient = new GithubEnterprise(HOSTNAME);
         String endpoint = apiClient.getApiEndpoint();
 
-        assertThat(endpoint).isEqualTo(API_ENDPOINT);
+        assertThat(endpoint).isEqualTo(VALID_API_ENDPOINT);
     }
 
     @Test
@@ -70,7 +71,23 @@ public class GithubEnterpriseTest {
         ApiClient apiClient = new GithubEnterprise(HOSTNAME_SLASH);
         String endpoint = apiClient.getApiEndpoint();
 
-        assertThat(endpoint).isEqualTo(API_ENDPOINT);
+        assertThat(endpoint).isEqualTo(VALID_API_ENDPOINT);
+    }
+
+    @Test
+    public void ShouldReturnApiEndpoint_whenPathContainsApi() {
+        ApiClient apiClient = new GithubEnterprise(API_ENDPOINT_API_PATH);
+        String endpoint = apiClient.getApiEndpoint();
+
+        assertThat(endpoint).isEqualTo(VALID_API_ENDPOINT);
+    }
+
+    @Test
+    public void ShouldReturnApiEndpoint_whenPathContainsApiAndV3() {
+        ApiClient apiClient = new GithubEnterprise(VALID_API_ENDPOINT);
+        String endpoint = apiClient.getApiEndpoint();
+
+        assertThat(endpoint).isEqualTo(VALID_API_ENDPOINT);
     }
 
     @Test
@@ -78,7 +95,7 @@ public class GithubEnterpriseTest {
         ApiClient apiClient = new GithubEnterprise(HOSTNAME_HTTP);
         String endpoint = apiClient.getApiEndpoint();
 
-        assertThat(endpoint).isEqualTo(API_ENDPOINT);
+        assertThat(endpoint).isEqualTo(VALID_API_ENDPOINT);
     }
 
     @Test
@@ -86,7 +103,7 @@ public class GithubEnterpriseTest {
         ApiClient apiClient = new GithubEnterprise(HOSTNAME_NO_SCHEME);
         String endpoint = apiClient.getApiEndpoint();
 
-        assertThat(endpoint).isEqualTo(API_ENDPOINT);
+        assertThat(endpoint).isEqualTo(VALID_API_ENDPOINT);
     }
 
     @Test

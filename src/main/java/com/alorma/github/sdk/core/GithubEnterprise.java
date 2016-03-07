@@ -27,11 +27,20 @@ public class GithubEnterprise implements ApiClient {
 
     @Override
     public String getApiEndpoint() {
-        String hostname = url;
-        if (!hostname.endsWith("/")) {
-            hostname += "/";
+        if (url.endsWith("/api/v3/")) {
+            return url.substring(0, url.length());
+        } else if (url.endsWith("/api/")) {
+            return url + "v3";
+        } else if (url.endsWith("/api")) {
+            return url + "/v3";
+        } else if (url.endsWith("/api/v3")) {
+            return url;
+        } else if (!url.endsWith("/")) {
+            return url + "/api/v3";
+        } else if (url.endsWith("/")) {
+            return url + "api/v3";
         }
-        return hostname + "api/v3";
+        return url;
     }
 
     @Override
