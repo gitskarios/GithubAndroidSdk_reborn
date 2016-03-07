@@ -7,12 +7,5 @@ jdk:
 before_install:
  - chmod +x gradlew
 
-env:
-  matrix:
-    - COMPILE_METHOD=build
-    - COMPILE_METHOD=test
-    - COMPILE_METHOD=cobertura
-    - COMPILE_METHOD=coveralls
-
 script:
- - ./gradlew $COMPILE_METHOD
+ - ./gradlew cobertura coveralls
