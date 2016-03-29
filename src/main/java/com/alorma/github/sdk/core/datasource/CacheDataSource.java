@@ -1,9 +1,9 @@
 package com.alorma.github.sdk.core.datasource;
 
-public interface CacheDataSource<Identifier, Data> {
+public interface CacheDataSource<Request, Data> {
 
-    void saveData(Identifier identifier, Data data);
+    void saveData(Request request, Data data);
 
-    Data getData(Identifier identifier);
+    Data getData(Request request);
 
 }
