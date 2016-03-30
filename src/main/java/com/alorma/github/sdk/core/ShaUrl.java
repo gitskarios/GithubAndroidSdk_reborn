@@ -1,27 +1,41 @@
 package com.alorma.github.sdk.core;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ShaUrl {
 
-  private static final int MAX_SHA_LENGHT = 8;
   public String sha;
   public String url;
-  public String html_url;
+
+  @SerializedName("html_url")
+  public String htmlUrl;
 
   public ShaUrl() {
   }
 
 
-  public static String shortShaStatic(String sha) {
-    int start = 0;
-    int end = Math.min(MAX_SHA_LENGHT, sha.length());
-
-    return sha.substring(start, end);
+  public String getSha() {
+    return sha;
   }
 
-  public String shortSha() {
-    int start = 0;
-    int end = Math.min(MAX_SHA_LENGHT, sha.length());
-
-    return sha.substring(start, end);
+  public void setSha(String sha) {
+    this.sha = sha;
   }
+
+  public String getUrl() {
+    return url;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
+  }
+
+  public String getHtmlUrl() {
+    return htmlUrl;
+  }
+
+  public void setHtmlUrl(String htmlUrl) {
+    this.htmlUrl = htmlUrl;
+  }
+
 }

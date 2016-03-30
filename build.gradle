@@ -3,7 +3,7 @@ version '0.0.1-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'com.novoda.bintray-release'
-apply plugin: 'cobertura'
+// apply plugin: 'cobertura'
 apply plugin: 'com.github.kt3k.coveralls'
 
 repositories {
@@ -43,9 +43,10 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'org.assertj:assertj-core:2.3.0'
     testCompile 'org.mockito:mockito-all:1.10.19'
+    testCompile 'com.sergiandreplace.testabean:testabean:1.0.0'
 
     compile 'com.squareup.retrofit2:retrofit:2.0.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0'
 }
 
-cobertura.coverageFormats = ['html', 'xml'] // coveralls plugin depends on xml format report
+// cobertura.coverageFormats = ['html', 'xml'] // coveralls plugin depends on xml format report
