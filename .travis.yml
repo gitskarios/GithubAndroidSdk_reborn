@@ -8,4 +8,4 @@ before_install:
  - chmod +x gradlew
 
 script:
- - ./gradlew cobertura coveralls
+ - ./gradlew check
