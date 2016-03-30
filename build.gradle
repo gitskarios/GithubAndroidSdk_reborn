@@ -8,6 +8,7 @@ apply plugin: 'com.github.kt3k.coveralls'
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -20,7 +21,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.novoda:bintray-release:0.3.4'
-        classpath 'net.saliman:gradle-cobertura-plugin:2.0.0' // cobertura plugin
+        //classpath 'net.saliman:gradle-cobertura-plugin:2.0.0' // cobertura plugin
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.4.0'
     }
 }
