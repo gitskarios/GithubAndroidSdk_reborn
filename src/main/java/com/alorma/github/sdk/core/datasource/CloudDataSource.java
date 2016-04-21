@@ -14,5 +14,5 @@ public abstract class CloudDataSource<Request, Data> {
     return execute(e, restWrapper);
   }
 
-  protected abstract Data execute(Request request, RestWrapper restType) throws IOException;
+  protected abstract Data execute(Request request, RestWrapper service) throws IOException;
 }

@@ -27,6 +27,9 @@ public class GenericRepository<Request, Data>  {
 
     if (cloud != null) {
       data = cloud.execute(request);
+      if (data != null && cache != null) {
+        cache.saveData(request, data);
+      }
     }
     return data;
   }

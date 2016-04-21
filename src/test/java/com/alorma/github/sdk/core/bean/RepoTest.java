@@ -1,7 +1,5 @@
 package com.alorma.github.sdk.core.bean;
 
-import com.alorma.github.sdk.core.Repo;
-import com.alorma.github.sdk.core.User;
 import com.alorma.github.sdk.core.bean.generator.UserGenerator;
 import com.sergiandreplace.testabean.Configuration;
 import com.sergiandreplace.testabean.TestABean;

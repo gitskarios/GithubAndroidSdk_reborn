@@ -1,7 +1,7 @@
 package com.alorma.github.sdk.core.notifications;
 
-import com.alorma.github.sdk.core.Repo;
 import com.alorma.github.sdk.core.ShaUrl;
+import com.alorma.github.sdk.core.repositories.Repo;
 
 public class Notification extends ShaUrl {
 
