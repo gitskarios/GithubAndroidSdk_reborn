@@ -9,11 +9,11 @@ import retrofit2.Call;
 import retrofit2.Response;
 import rx.Observable;
 
-public class CloudUserRepositoriesDataSource extends CloudDataSource<String, List<Repo>> {
+public class CloudStarredRepositoriesDataSource extends CloudDataSource<String, List<Repo>> {
 
   private String sortOrder;
 
-  public CloudUserRepositoriesDataSource(RestWrapper restWrapper, String sortOrder) {
+  public CloudStarredRepositoriesDataSource(RestWrapper restWrapper, String sortOrder) {
     super(restWrapper);
     this.sortOrder = sortOrder;
   }
@@ -28,15 +28,15 @@ public class CloudUserRepositoriesDataSource extends CloudDataSource<String, Lis
         Call<List<Repo>> call;
         if (data.getPage() <= 0) {
           if (data.getK() != null) {
-            call = reposService.userReposList(data.getK(), sortOrder);
+            call = reposService.userStarredReposList(data.getK(), sortOrder);
           } else {
-            call = reposService.userReposList(sortOrder);
+            call = reposService.userStarredReposList(sortOrder);
           }
         } else {
           if (data.getK() != null) {
-            call = reposService.userReposList(data.getK(), data.getPage(), sortOrder);
+            call = reposService.userStarredReposList(data.getK(), data.getPage(), sortOrder);
           } else {
-            call = reposService.userReposList(data.getPage(), sortOrder);
+            call = reposService.userStarredReposList(data.getPage(), sortOrder);
           }
         }
 

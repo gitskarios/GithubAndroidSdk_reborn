@@ -10,9 +10,9 @@ public abstract class CloudDataSource<Request, Data> {
     this.restWrapper = restWrapper;
   }
 
-  public Observable<SdkResponse<Data>> execute(Request e) {
+  public Observable<SdkItem<Data>> execute(SdkItem<Request> e) {
     return execute(e, restWrapper);
   }
 
-  protected abstract Observable<SdkResponse<Data>> execute(Request request, RestWrapper service);
+  protected abstract Observable<SdkItem<Data>> execute(SdkItem<Request> request, RestWrapper service);
 }

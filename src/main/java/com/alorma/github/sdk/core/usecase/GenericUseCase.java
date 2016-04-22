@@ -1,6 +1,6 @@
 package com.alorma.github.sdk.core.usecase;
 
-import com.alorma.github.sdk.core.datasource.SdkResponse;
+import com.alorma.github.sdk.core.datasource.SdkItem;
 import com.alorma.github.sdk.core.repository.GenericRepository;
 import rx.Observable;
 
@@ -15,7 +15,7 @@ public class GenericUseCase<Request, Data> {
     this.repository = repository;
   }
 
-  public Observable<SdkResponse<Data>> execute(Request request) {
+  public Observable<SdkItem<Data>> execute(SdkItem<Request> request) {
     return repository.execute(request);
   }
 }

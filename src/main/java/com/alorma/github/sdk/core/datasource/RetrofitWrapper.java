@@ -72,10 +72,12 @@ public abstract class RetrofitWrapper extends RestWrapper {
         String[] parts = header.split(",");
         for (String part : parts) {
           PaginationLink bottomPaginationLink = new PaginationLink(part);
-          return bottomPaginationLink.page;
+          if (bottomPaginationLink.rel == RelType.next) {
+            return bottomPaginationLink.page;
+          }
         }
       }
     }
-    return -1;
+    return Integer.MIN_VALUE;
   }
 }

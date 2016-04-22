@@ -1,10 +1,15 @@
 package com.alorma.github.sdk.core.datasource;
 
-public class SdkResponse<K> {
+public class SdkItem<K> {
   private int page;
   private K k;
 
-  public SdkResponse(int page, K k) {
+  public SdkItem(K k) {
+    this.page = Integer.MIN_VALUE;
+    this.k = k;
+  }
+
+  public SdkItem(int page, K k) {
     this.page = page;
     this.k = k;
   }
