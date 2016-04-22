@@ -1,7 +1,6 @@
 package com.alorma.github.sdk.core.datasource;
 
 import com.alorma.github.sdk.core.ApiClient;
-import com.alorma.github.sdk.core.datasource.RestWrapper;
 import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -13,6 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public abstract class RetrofitWrapper extends RestWrapper {
 
   private final String token;
+
   public RetrofitWrapper(ApiClient apiClient, String token) {
     super(apiClient);
     this.token = token;
@@ -47,5 +47,35 @@ public abstract class RetrofitWrapper extends RestWrapper {
     });
 
     return builder.build();
+  }
+
+  @Override
+  public boolean isPaginated(retrofit2.Response response) {
+    if (response.headers() != null) {
+      String header = response.headers().get("Link");
+      if (null != header) {
+        String[] parts = header.split(",");
+        for (String part : parts) {
+          PaginationLink bottomPaginationLink = new PaginationLink(part);
+          return bottomPaginationLink.rel == RelType.next;
+        }
+      }
+    }
+    return false;
+  }
+
+  @Override
+  public int getPage(retrofit2.Response response) {
+    if (isPaginated(response)) {
+      String header = response.headers().get("Link");
+      if (null != header) {
+        String[] parts = header.split(",");
+        for (String part : parts) {
+          PaginationLink bottomPaginationLink = new PaginationLink(part);
+          return bottomPaginationLink.page;
+        }
+      }
+    }
+    return -1;
   }
 }

@@ -1,6 +1,6 @@
 package com.alorma.github.sdk.core.datasource;
 
-import java.io.IOException;
+import rx.Observable;
 
 public abstract class CloudDataSource<Request, Data> {
 
@@ -10,9 +10,9 @@ public abstract class CloudDataSource<Request, Data> {
     this.restWrapper = restWrapper;
   }
 
-  public Data execute(Request e) throws IOException {
+  public Observable<SdkResponse<Data>> execute(Request e) {
     return execute(e, restWrapper);
   }
 
-  protected abstract Data execute(Request request, RestWrapper service) throws IOException;
+  protected abstract Observable<SdkResponse<Data>> execute(Request request, RestWrapper service);
 }

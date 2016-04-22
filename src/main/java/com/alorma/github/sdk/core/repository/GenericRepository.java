@@ -2,9 +2,10 @@ package com.alorma.github.sdk.core.repository;
 
 import com.alorma.github.sdk.core.datasource.CacheDataSource;
 import com.alorma.github.sdk.core.datasource.CloudDataSource;
-import java.io.IOException;
+import com.alorma.github.sdk.core.datasource.SdkResponse;
+import rx.Observable;
 
-public class GenericRepository<Request, Data>  {
+public class GenericRepository<Request, Data> {
 
   CacheDataSource<Request, Data> cache;
   CloudDataSource<Request, Data> cloud;
@@ -15,22 +16,15 @@ public class GenericRepository<Request, Data>  {
     this.cloud = cloud;
   }
 
-  public Data execute(Request request) throws IOException {
-    Data data = null;
+  public Observable<SdkResponse<Data>> execute(Request request) {
+    Observable<SdkResponse<Data>> cacheObs = Observable.empty();
+    Observable<SdkResponse<Data>> cloudObs = Observable.empty();
     if (cache != null) {
-      data = cache.getData(request);
+      cacheObs = cache.getData(request);
     }
-
-    if (data != null) {
-      return data;
-    }
-
     if (cloud != null) {
-      data = cloud.execute(request);
-      if (data != null && cache != null) {
-        cache.saveData(request, data);
-      }
+      cloudObs = cloud.execute(request);
     }
-    return data;
+    return Observable.concat(cacheObs, cloudObs).first();
   }
 }
