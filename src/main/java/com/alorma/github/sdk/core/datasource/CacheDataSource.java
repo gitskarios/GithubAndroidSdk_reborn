@@ -4,7 +4,7 @@ import rx.Observable;
 
 public interface CacheDataSource<Request, Data> {
 
-  void saveData(SdkItem<Request> request, Data data);
+  void saveData(SdkItem<Request> request, SdkItem<Data> data);
 
   Observable<SdkItem<Data>> getData(SdkItem<Request> request);
 }
