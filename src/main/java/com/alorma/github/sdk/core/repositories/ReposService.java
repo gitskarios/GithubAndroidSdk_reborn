@@ -35,4 +35,19 @@ public interface ReposService {
   @GET("/users/{username}/starred?sort=updated")
   Call<List<Repo>> userStarredReposList(@Path("username") String username, @Query("page") int page,
       @Query("sort") String sort);
+
+  // Watched repos
+  @GET("/user/subscriptions")
+  Call<List<Repo>> userSubscribedReposList(@Query("sort") String sort);
+
+  @GET("/user/subscriptions")
+  Call<List<Repo>> userSubscribedReposList(@Query("page") int page, @Query("sort") String sort);
+
+  @GET("/users/{username}/subscriptions")
+  Call<List<Repo>> userSubscribedReposList(@Path("username") String username,
+      @Query("sort") String sort);
+
+  @GET("/users/{username}/subscriptions")
+  Call<List<Repo>> userSubscribedReposList(@Path("username") String username,
+      @Query("page") int page, @Query("sort") String sort);
 }
