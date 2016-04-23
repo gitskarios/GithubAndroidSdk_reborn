@@ -50,4 +50,18 @@ public interface ReposService {
   @GET("/users/{username}/subscriptions")
   Call<List<Repo>> userSubscribedReposList(@Path("username") String username,
       @Query("page") int page, @Query("sort") String sort);
+
+  // Member
+  @GET("/user/repos?affiliation=collaborator,organization_member")
+  Call<List<Repo>> userMemberRepos(@Query("sort") String sort);
+
+  // Member
+  @GET("/user/repos?affiliation=collaborator,organization_member")
+  Call<List<Repo>> userMemberRepos(@Query("page") int page, @Query("sort") String sort);
+
+  @GET("/user/repos?affiliation=organization_member")
+  Call<List<Repo>> userReposListFromOrgs(@Query("sort") String sort);
+
+  @GET("/user/repos?affiliation=organization_member")
+  Call<List<Repo>> userReposListFromOrgs(@Query("page") int page, @Query("sort") String sort);
 }
