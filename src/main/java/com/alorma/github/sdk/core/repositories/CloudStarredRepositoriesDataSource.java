@@ -26,22 +26,22 @@ public class CloudStarredRepositoriesDataSource extends CloudDataSource<String, 
       public SdkItem<List<Repo>> call() throws Exception {
         ReposService reposService = service.get();
         Call<List<Repo>> call;
-        if (data.getPage() <= 0) {
-          if (data.getK() != null) {
-            call = reposService.userStarredReposList(data.getK(), sortOrder);
-          } else {
-            call = reposService.userStarredReposList(sortOrder);
-          }
-        } else {
+        if (data.getPage() != null) {
           if (data.getK() != null) {
             call = reposService.userStarredReposList(data.getK(), data.getPage(), sortOrder);
           } else {
             call = reposService.userStarredReposList(data.getPage(), sortOrder);
           }
+        } else {
+          if (data.getK() != null) {
+            call = reposService.userStarredReposList(data.getK(), sortOrder);
+          } else {
+            call = reposService.userStarredReposList(sortOrder);
+          }
         }
 
         Response<List<Repo>> listResponse = call.execute();
-        int page = Integer.MIN_VALUE;
+        Integer page = null;
         if (service.isPaginated(listResponse)) {
           page = service.getPage(listResponse);
         }

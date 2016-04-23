@@ -26,17 +26,17 @@ public class CloudUserRepositoriesDataSource extends CloudDataSource<String, Lis
       public SdkItem<List<Repo>> call() throws Exception {
         ReposService reposService = service.get();
         Call<List<Repo>> call;
-        if (data.getPage() <= 0) {
-          if (data.getK() != null) {
-            call = reposService.userReposList(data.getK(), sortOrder);
-          } else {
-            call = reposService.userReposList(sortOrder);
-          }
-        } else {
+        if (data.getPage() != null) {
           if (data.getK() != null) {
             call = reposService.userReposList(data.getK(), data.getPage(), sortOrder);
           } else {
             call = reposService.userReposList(data.getPage(), sortOrder);
+          }
+        } else {
+          if (data.getK() != null) {
+            call = reposService.userReposList(data.getK(), sortOrder);
+          } else {
+            call = reposService.userReposList(sortOrder);
           }
         }
 

@@ -65,7 +65,7 @@ public abstract class RetrofitWrapper extends RestWrapper {
   }
 
   @Override
-  public int getPage(retrofit2.Response response) {
+  public Integer getPage(retrofit2.Response response) {
     if (isPaginated(response)) {
       String header = response.headers().get("Link");
       if (null != header) {
@@ -78,6 +78,6 @@ public abstract class RetrofitWrapper extends RestWrapper {
         }
       }
     }
-    return Integer.MIN_VALUE;
+    return null;
   }
 }
