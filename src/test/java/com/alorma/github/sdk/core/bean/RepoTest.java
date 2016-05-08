@@ -1,6 +1,7 @@
 package com.alorma.github.sdk.core.bean;
 
 import com.alorma.github.sdk.core.bean.generator.UserGenerator;
+import com.alorma.github.sdk.core.repositories.Repo;
 import com.sergiandreplace.testabean.Configuration;
 import com.sergiandreplace.testabean.TestABean;
 import com.sergiandreplace.testabean.exception.FieldException;
