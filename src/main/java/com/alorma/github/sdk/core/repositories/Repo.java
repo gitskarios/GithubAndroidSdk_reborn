@@ -8,92 +8,88 @@ import java.util.List;
 
 public class Repo extends ShaUrl {
 
-  public boolean fork;
-  @SerializedName("private") public boolean isPrivate;
-  public Date created_at;
-  public Date pushed_at;
-  public Date updated_at;
+  @SerializedName("private") public boolean privateRepo;
+  @SerializedName("created_at")  public Date createdAt;
+  @SerializedName("pushed_at") public Date pushedAt;
+  @SerializedName("updated_at") public Date updatedAt;
   public int forks_count;
   public long id;
   public Repo parent;
   public Repo source;
-  public String clone_url;
+  @SerializedName("clone_url")
+  public String cloneUrl;
   public String description;
   public String homepage;
-  public String git_url;
+  @SerializedName("gitUrl")
+  public String gitUrl;
   public String language;
-  public String default_branch;
-  public String mirror_url;
+  @SerializedName("default_branch")
+  public String defaultBranch;
+  @SerializedName("mirror_url")
+  public String mirrorUrl;
   public String name;
   @SerializedName("full_name")
   public String fullName;
   public String ssh_url;
   public String svn_url;
   public User owner;
-  public int stargazers_count;
-  public int subscribers_count;
-  public int network_count;
-  public int watchers_count;
+  @SerializedName("stargazers_count")
+  public int stargazersCount;
+  @SerializedName("subscribers_count")
+  public int subscribersCount;
+  @SerializedName("network_count")
+  public int networkCount;
+  @SerializedName("watchers_count")
+  public int watchersCount;
   public int size;
-  public int open_issues_count;
-  public boolean has_issues;
-  public boolean has_downloads;
-  public boolean has_wiki;
+  @SerializedName("open_issues_count")
+  public int openIssuesCount;
+  @SerializedName("has_issues")
+  public boolean hasIssues;
+  @SerializedName("has_downloads")
+  public boolean hasDownloads;
+  @SerializedName("has_wiki")
+  public boolean hasWiki;
   public Permissions permissions;
   public License license;
   public List<Branch> branches;
-  public String archive_url;
+  @SerializedName("archive_url")
+  public String archiveUrl;
 
   public Repo() {
     super();
   }
 
-  public String getMirror_url() {
-    return mirror_url;
+  public boolean isPrivateRepo() {
+    return privateRepo;
   }
 
-  public void setMirror_url(String mirror_url) {
-    this.mirror_url = mirror_url;
+  public void setPrivateRepo(boolean privateRepo) {
+    this.privateRepo = privateRepo;
   }
 
-  public boolean isFork() {
-    return fork;
+  public Date getCreatedAt() {
+    return createdAt;
   }
 
-  public void setFork(boolean fork) {
-    this.fork = fork;
+  public void setCreatedAt(Date createdAt) {
+    this.createdAt = createdAt;
   }
 
-  public boolean isPrivate() {
-    return isPrivate;
+  public Date getPushedAt() {
+    return pushedAt;
   }
 
-  public void setPrivate(boolean aPrivate) {
-    isPrivate = aPrivate;
+  public void setPushedAt(Date pushedAt) {
+    this.pushedAt = pushedAt;
   }
 
-  public Date getCreated_at() {
-    return created_at;
+  public Date getUpdatedAt() {
+    return updatedAt;
   }
 
-  public void setCreated_at(Date created_at) {
-    this.created_at = created_at;
-  }
-
-  public Date getPushed_at() {
-    return pushed_at;
-  }
-
-  public void setPushed_at(Date pushed_at) {
-    this.pushed_at = pushed_at;
-  }
-
-  public Date getUpdated_at() {
-    return updated_at;
-  }
-
-  public void setUpdated_at(Date updated_at) {
-    this.updated_at = updated_at;
+  public void setUpdatedAt(Date updatedAt) {
+    this.updatedAt = updatedAt;
   }
 
   public int getForks_count() {
@@ -128,12 +124,12 @@ public class Repo extends ShaUrl {
     this.source = source;
   }
 
-  public String getClone_url() {
-    return clone_url;
+  public String getCloneUrl() {
+    return cloneUrl;
   }
 
-  public void setClone_url(String clone_url) {
-    this.clone_url = clone_url;
+  public void setCloneUrl(String cloneUrl) {
+    this.cloneUrl = cloneUrl;
   }
 
   public String getDescription() {
@@ -152,12 +148,12 @@ public class Repo extends ShaUrl {
     this.homepage = homepage;
   }
 
-  public String getGit_url() {
-    return git_url;
+  public String getGitUrl() {
+    return gitUrl;
   }
 
-  public void setGit_url(String git_url) {
-    this.git_url = git_url;
+  public void setGitUrl(String gitUrl) {
+    this.gitUrl = gitUrl;
   }
 
   public String getLanguage() {
@@ -168,12 +164,20 @@ public class Repo extends ShaUrl {
     this.language = language;
   }
 
-  public String getDefault_branch() {
-    return default_branch;
+  public String getDefaultBranch() {
+    return defaultBranch;
   }
 
-  public void setDefault_branch(String default_branch) {
-    this.default_branch = default_branch;
+  public void setDefaultBranch(String defaultBranch) {
+    this.defaultBranch = defaultBranch;
+  }
+
+  public String getMirrorUrl() {
+    return mirrorUrl;
+  }
+
+  public void setMirrorUrl(String mirrorUrl) {
+    this.mirrorUrl = mirrorUrl;
   }
 
   public String getName() {
@@ -216,36 +220,36 @@ public class Repo extends ShaUrl {
     this.owner = owner;
   }
 
-  public int getStargazers_count() {
-    return stargazers_count;
+  public int getStargazersCount() {
+    return stargazersCount;
   }
 
-  public void setStargazers_count(int stargazers_count) {
-    this.stargazers_count = stargazers_count;
+  public void setStargazersCount(int stargazersCount) {
+    this.stargazersCount = stargazersCount;
   }
 
-  public int getSubscribers_count() {
-    return subscribers_count;
+  public int getSubscribersCount() {
+    return subscribersCount;
   }
 
-  public void setSubscribers_count(int subscribers_count) {
-    this.subscribers_count = subscribers_count;
+  public void setSubscribersCount(int subscribersCount) {
+    this.subscribersCount = subscribersCount;
   }
 
-  public int getNetwork_count() {
-    return network_count;
+  public int getNetworkCount() {
+    return networkCount;
   }
 
-  public void setNetwork_count(int network_count) {
-    this.network_count = network_count;
+  public void setNetworkCount(int networkCount) {
+    this.networkCount = networkCount;
   }
 
-  public int getWatchers_count() {
-    return watchers_count;
+  public int getWatchersCount() {
+    return watchersCount;
   }
 
-  public void setWatchers_count(int watchers_count) {
-    this.watchers_count = watchers_count;
+  public void setWatchersCount(int watchersCount) {
+    this.watchersCount = watchersCount;
   }
 
   public int getSize() {
@@ -256,36 +260,36 @@ public class Repo extends ShaUrl {
     this.size = size;
   }
 
-  public int getOpen_issues_count() {
-    return open_issues_count;
+  public int getOpenIssuesCount() {
+    return openIssuesCount;
   }
 
-  public void setOpen_issues_count(int open_issues_count) {
-    this.open_issues_count = open_issues_count;
+  public void setOpenIssuesCount(int openIssuesCount) {
+    this.openIssuesCount = openIssuesCount;
   }
 
-  public boolean isHas_issues() {
-    return has_issues;
+  public boolean isHasIssues() {
+    return hasIssues;
   }
 
-  public void setHas_issues(boolean has_issues) {
-    this.has_issues = has_issues;
+  public void setHasIssues(boolean hasIssues) {
+    this.hasIssues = hasIssues;
   }
 
-  public boolean isHas_downloads() {
-    return has_downloads;
+  public boolean isHasDownloads() {
+    return hasDownloads;
   }
 
-  public void setHas_downloads(boolean has_downloads) {
-    this.has_downloads = has_downloads;
+  public void setHasDownloads(boolean hasDownloads) {
+    this.hasDownloads = hasDownloads;
   }
 
-  public boolean isHas_wiki() {
-    return has_wiki;
+  public boolean isHasWiki() {
+    return hasWiki;
   }
 
-  public void setHas_wiki(boolean has_wiki) {
-    this.has_wiki = has_wiki;
+  public void setHasWiki(boolean hasWiki) {
+    this.hasWiki = hasWiki;
   }
 
   public Permissions getPermissions() {
@@ -312,11 +316,11 @@ public class Repo extends ShaUrl {
     this.branches = branches;
   }
 
-  public String getArchive_url() {
-    return archive_url;
+  public String getArchiveUrl() {
+    return archiveUrl;
   }
 
-  public void setArchive_url(String archive_url) {
-    this.archive_url = archive_url;
+  public void setArchiveUrl(String archiveUrl) {
+    this.archiveUrl = archiveUrl;
   }
 }
