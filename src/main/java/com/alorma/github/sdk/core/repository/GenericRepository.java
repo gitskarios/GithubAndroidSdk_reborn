@@ -35,7 +35,9 @@ public class GenericRepository<Request, Data> {
     cloudObs = cloudObs.doOnNext(new Action1<SdkItem<Data>>() {
       @Override
       public void call(SdkItem<Data> dataSdkItem) {
-        cache.saveData(request, dataSdkItem);
+        if (cache != null) {
+          cache.saveData(request, dataSdkItem);
+        }
       }
     });
     return Observable.concat(cacheObs, cloudObs).first();
