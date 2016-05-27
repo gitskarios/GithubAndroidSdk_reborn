@@ -1,6 +1,8 @@
 package com.alorma.github.sdk.core.repositories;
 
-public class Permissions {
+import java.io.Serializable;
+
+public class Permissions implements Serializable {
 
   public boolean admin;
   public boolean push;
