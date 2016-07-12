@@ -13,7 +13,7 @@ public class GithubEnterpriseTest {
     private static final String HOSTNAME_NO_SCHEME = "alorma.github.io";
     private static final String HOSTNAME_SLASH = "https://alorma.github.io/";
     private static final String API_ENDPOINT_API_PATH = "https://alorma.github.io/api";
-    private static final String VALID_API_ENDPOINT = "https://alorma.github.io/api/v3";
+    private static final String VALID_API_ENDPOINT = "https://alorma.github.io/api/v3/";
     private static final String TYPE = "github-enterprise";
 
     @Test(expected = NullPointerException.class)

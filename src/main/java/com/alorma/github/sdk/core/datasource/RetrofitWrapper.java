@@ -1,6 +1,8 @@
 package com.alorma.github.sdk.core.datasource;
 
 import com.alorma.github.sdk.core.ApiClient;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -20,8 +22,9 @@ public abstract class RetrofitWrapper extends RestWrapper {
 
   @Override
   protected <T> T get(ApiClient apiClient) {
+    Gson gson =  new GsonBuilder().setLenient().create();
     Retrofit retrofit = new Retrofit.Builder().baseUrl(apiClient.getApiEndpoint())
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create(gson))
         .client(getClient())
         .build();
 

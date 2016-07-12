@@ -11,8 +11,7 @@ public class GenericRepository<Request, Data> {
   CacheDataSource<Request, Data> cache;
   CloudDataSource<Request, Data> cloud;
 
-  public GenericRepository(CacheDataSource<Request, Data> cache,
-      CloudDataSource<Request, Data> cloud) {
+  public GenericRepository(CacheDataSource<Request, Data> cache, CloudDataSource<Request, Data> cloud) {
     this.cache = cache;
     this.cloud = cloud;
   }
@@ -32,14 +31,19 @@ public class GenericRepository<Request, Data> {
     if (cloudObs == null) {
       cloudObs = Observable.empty();
     }
-    cloudObs = cloudObs.doOnNext(new Action1<SdkItem<Data>>() {
-      @Override
-      public void call(SdkItem<Data> dataSdkItem) {
-        if (cache != null) {
-          cache.saveData(request, dataSdkItem);
-        }
-      }
-    });
+    cloudObs = cloudObs.onErrorResumeNext(fallbackApi() != null ? fallbackApi() : Observable.<SdkItem<Data>>empty())
+        .doOnNext(new Action1<SdkItem<Data>>() {
+          @Override
+          public void call(SdkItem<Data> dataSdkItem) {
+            if (cache != null) {
+              cache.saveData(request, dataSdkItem);
+            }
+          }
+        });
     return Observable.concat(cacheObs, cloudObs).first();
+  }
+
+  protected Observable<SdkItem<Data>> fallbackApi() {
+    return null;
   }
 }
