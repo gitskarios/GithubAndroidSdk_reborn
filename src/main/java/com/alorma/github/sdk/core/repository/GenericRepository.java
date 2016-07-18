@@ -8,8 +8,8 @@ import rx.functions.Action1;
 
 public class GenericRepository<Request, Data> {
 
-  CacheDataSource<Request, Data> cache;
-  CloudDataSource<Request, Data> cloud;
+  private CacheDataSource<Request, Data> cache;
+  private CloudDataSource<Request, Data> cloud;
 
   public GenericRepository(CacheDataSource<Request, Data> cache, CloudDataSource<Request, Data> cloud) {
     this.cache = cache;
