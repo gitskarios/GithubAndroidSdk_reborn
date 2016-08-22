@@ -1,10 +1,14 @@
 package com.alorma.github.sdk.core;
 
+import com.google.gson.annotations.SerializedName;
+
 public class User {
 
   private int id;
   private String login;
   private String name;
+  @SerializedName("avatar_url")
+  private String avatar;
 
   public User() {
   }
@@ -31,5 +35,9 @@ public class User {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getAvatar() {
+    return avatar;
   }
 }
