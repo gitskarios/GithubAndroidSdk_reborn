@@ -27,7 +27,7 @@ public class CloudUsersIssuesDataSource extends CloudDataSource<Void, List<Issue
     return Observable.defer(new Func0<Observable<SdkItem<List<Issue>>>>() {
       @Override
       public Observable<SdkItem<List<Issue>>> call() {
-        String query = String.format(IssuesSearchService.QUERY, "issue", "open", action, name);
+        String query = String.format(IssuesSearchService.QUERY, "open", action, name);
         IssuesSearchService issuesService = service.get();
         Call<IssueSearchResponse> call;
         if (data.getPage() != null) {

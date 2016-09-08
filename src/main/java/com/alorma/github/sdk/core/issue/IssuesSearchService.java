@@ -7,7 +7,7 @@ import retrofit2.http.Query;
 
 public interface IssuesSearchService {
 
-  String QUERY = "is:%s is:%s %s:%s";
+  String QUERY = "is:%s %s:%s";
 
   @GET("/search/issues")
   Call<IssueSearchResponse> userIssues(@Query("q") String filter);
