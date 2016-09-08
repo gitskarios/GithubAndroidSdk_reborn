@@ -3,7 +3,7 @@ package com.alorma.github.sdk.core.issues;
 import com.alorma.github.sdk.core.datasource.CloudDataSource;
 import com.alorma.github.sdk.core.datasource.RestWrapper;
 import com.alorma.github.sdk.core.datasource.SdkItem;
-import com.alorma.github.sdk.core.issue.IssuesService;
+import com.alorma.github.sdk.core.issue.IssuesSearchService;
 import java.io.IOException;
 import java.util.List;
 import retrofit2.Call;
@@ -13,11 +13,13 @@ import rx.functions.Func0;
 
 public class CloudUsersIssuesDataSource extends CloudDataSource<Void, List<Issue>> {
 
-  private final String filter;
+  private final String action;
+  private final String name;
 
-  public CloudUsersIssuesDataSource(RestWrapper restWrapper, String filter) {
+  public CloudUsersIssuesDataSource(RestWrapper restWrapper, String action, String name) {
     super(restWrapper);
-    this.filter = filter;
+    this.action = action;
+    this.name = name;
   }
 
   @Override
@@ -25,25 +27,26 @@ public class CloudUsersIssuesDataSource extends CloudDataSource<Void, List<Issue
     return Observable.defer(new Func0<Observable<SdkItem<List<Issue>>>>() {
       @Override
       public Observable<SdkItem<List<Issue>>> call() {
-        IssuesService issuesService = service.get();
-        Call<List<Issue>> call;
+        String query = String.format(IssuesSearchService.QUERY, "issue", "open", action, name);
+        IssuesSearchService issuesService = service.get();
+        Call<IssueSearchResponse> call;
         if (data.getPage() != null) {
-          call = issuesService.userIssues(filter, data.getPage());
+          call = issuesService.userIssues(query, data.getPage());
         } else {
-          call = issuesService.userIssues(filter);
+          call = issuesService.userIssues(query);
         }
 
         try {
-          Response<List<Issue>> listResponse = call.execute();
-          if (listResponse.isSuccessful()) {
+          Response<IssueSearchResponse> response = call.execute();
+          if (response.isSuccessful()) {
             Integer page = null;
-            if (service.isPaginated(listResponse)) {
-              page = service.getPage(listResponse);
+            if (service.isPaginated(response)) {
+              page = service.getPage(response);
             }
 
-            return Observable.just(new SdkItem<>(page, listResponse.body()));
+            return Observable.just(new SdkItem<>(page, response.body().getIssues()));
           } else {
-            return Observable.error(new Exception(listResponse.message()));
+            return Observable.error(new Exception(response.message()));
           }
         } catch (IOException e) {
           return Observable.error(e);

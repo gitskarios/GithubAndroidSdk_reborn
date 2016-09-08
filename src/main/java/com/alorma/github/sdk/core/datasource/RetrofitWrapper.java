@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public abstract class RetrofitWrapper extends RestWrapper {
 
-  private final String token;
+  private String token;
 
   public RetrofitWrapper(ApiClient apiClient, String token) {
     super(apiClient);
@@ -22,7 +22,7 @@ public abstract class RetrofitWrapper extends RestWrapper {
 
   @Override
   protected <T> T get(ApiClient apiClient) {
-    Gson gson =  new GsonBuilder().setLenient().create();
+    Gson gson = new GsonBuilder().setLenient().create();
     Retrofit retrofit = new Retrofit.Builder().baseUrl(apiClient.getApiEndpoint())
         .addConverterFactory(GsonConverterFactory.create(gson))
         .client(getClient())
@@ -35,15 +35,19 @@ public abstract class RetrofitWrapper extends RestWrapper {
 
   private OkHttpClient getClient() {
     OkHttpClient.Builder builder = new OkHttpClient.Builder();
-
     builder.addInterceptor(new Interceptor() {
       @Override
       public Response intercept(Chain chain) throws IOException {
         Request original = chain.request();
 
-        Request.Builder builder = original.newBuilder()
-            .header("Authorization", "token " + token)
-            .method(original.method(), original.body());
+        Request.Builder builder = original.newBuilder();
+
+        if (token != null) {
+          builder.addHeader("Authorization", "token " + token);
+        }
+        builder.addHeader("User-Agent", "Gitskarios");
+        builder.addHeader("Accept", "application/vnd.github.v3.json");
+        builder.method(original.method(), original.body());
 
         return chain.proceed(builder.build());
       }

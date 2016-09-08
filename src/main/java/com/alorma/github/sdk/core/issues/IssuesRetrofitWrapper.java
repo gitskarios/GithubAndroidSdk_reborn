@@ -2,8 +2,7 @@ package com.alorma.github.sdk.core.issues;
 
 import com.alorma.github.sdk.core.ApiClient;
 import com.alorma.github.sdk.core.datasource.RetrofitWrapper;
-import com.alorma.github.sdk.core.issue.IssuesService;
-import com.alorma.github.sdk.core.repositories.ReposService;
+import com.alorma.github.sdk.core.issue.IssuesSearchService;
 import retrofit2.Retrofit;
 
 public class IssuesRetrofitWrapper extends RetrofitWrapper {
@@ -12,7 +11,7 @@ public class IssuesRetrofitWrapper extends RetrofitWrapper {
   }
 
   @Override
-  protected IssuesService get(Retrofit retrofit) {
-    return retrofit.create(IssuesService.class);
+  protected IssuesSearchService get(Retrofit retrofit) {
+    return retrofit.create(IssuesSearchService.class);
   }
 }
