@@ -18,6 +18,8 @@ public class Issue {
   private Repo repository;
   @SerializedName("pull_request")
   private PullRequest pullRequest;
+  @SerializedName("repository_url")
+  private String repositoryUrl;
 
   public List<Label> labels;
 
@@ -63,5 +65,17 @@ public class Issue {
 
   public PullRequest getPullRequest() {
     return pullRequest;
+  }
+
+  public String getRepositoryUrl() {
+    return repositoryUrl;
+  }
+
+  public void setRepositoryUrl(String repositoryUrl) {
+    this.repositoryUrl = repositoryUrl;
+  }
+
+  public void setRepository(Repo repository) {
+    this.repository = repository;
   }
 }

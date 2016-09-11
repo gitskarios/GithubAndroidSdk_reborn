@@ -3,7 +3,7 @@ version '0.0.1-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'com.novoda.bintray-release'
-// apply plugin: 'cobertura'
+apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.github.kt3k.coveralls'
 
 repositories {
@@ -27,8 +27,8 @@ buildscript {
 }
 
 compileJava {
-    sourceCompatibility = 1.7
-    targetCompatibility = 1.7
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 }
 
 publish {
