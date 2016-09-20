@@ -15,14 +15,18 @@ import retrofit2.http.Query;
  */
 public interface RepositoryTagsService {
     @GET("/repos/{owner}/{name}/tags")
-    Call<List<Tag>> tags(@Path("owner") String owner, @Path("name") String repo);
+    Call<List<Tag>> tags(@Path("owner") String owner, @Path("name") String repo,
+                         @Query("sort") String sort);
 
     @GET("/repos/{owner}/{name}/tags")
-    Call<List<Tag>> tags(@Path("owner") String owner, @Path("name") String repo, @Query("page") int page);
+    Call<List<Tag>> tags(@Path("owner") String owner, @Path("name") String repo,
+                         @Query("page") int page, @Query("sort") String sort);
 
     @GET("/repos/{owner}/{name}/commits/{sha}")
-    Call<Commit> commit(@Path("owner") String owner, @Path("name") String repo, @Path("sha") String sha);
+    Call<Commit> commit(@Path("owner") String owner, @Path("name") String repo,
+                        @Path("sha") String sha);
 
     @GET("/repos/{owner}/{name}/releases/tags/{tag}")
-    Call<Release> release(@Path("owner") String owner, @Path("name") String repo, @Path("tag") String tag);
+    Call<Release> release(@Path("owner") String owner, @Path("name") String repo,
+                          @Path("tag") String tag);
 }

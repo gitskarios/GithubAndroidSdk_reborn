@@ -16,12 +16,13 @@ import retrofit2.Response;
 import rx.Observable;
 
 public class TagsCloudDataSource extends CloudDataSource<RepoInfo, List<Tag>> {
-
     private final RestWrapper restWrapper;
+    private String sortOrder;
 
-    public TagsCloudDataSource(RestWrapper restWrapper) {
+    public TagsCloudDataSource(RestWrapper restWrapper, String sortOrder) {
         super(restWrapper);
         this.restWrapper = restWrapper;
+        this.sortOrder = sortOrder;
     }
 
     @Override
@@ -35,9 +36,9 @@ public class TagsCloudDataSource extends CloudDataSource<RepoInfo, List<Tag>> {
             public SdkItem<List<Tag>> call() throws Exception {
                 Call<List<Tag>> call;
                 if (page != null && page > 0) {
-                    call = repositoryTagsService.tags(repoInfo.owner, repoInfo.name, page);
+                    call = repositoryTagsService.tags(repoInfo.owner, repoInfo.name, page, sortOrder);
                 } else {
-                    call = repositoryTagsService.tags(repoInfo.owner, repoInfo.name);
+                    call = repositoryTagsService.tags(repoInfo.owner, repoInfo.name, sortOrder);
                 }
                 Response<List<Tag>> response = call.execute();
                 int page = Integer.MIN_VALUE;
