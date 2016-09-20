@@ -14,11 +14,11 @@ import retrofit2.http.Query;
  * API service for repository tags
  */
 public interface RepositoryTagsService {
-    @GET("/repos/{owner}/{name}/tags")
+    @GET("/repos/{owner}/{name}/tags?per_page=15")
     Call<List<Tag>> tags(@Path("owner") String owner, @Path("name") String repo,
                          @Query("sort") String sort);
 
-    @GET("/repos/{owner}/{name}/tags")
+    @GET("/repos/{owner}/{name}/tags?per_page=15")
     Call<List<Tag>> tags(@Path("owner") String owner, @Path("name") String repo,
                          @Query("page") int page, @Query("sort") String sort);
 
