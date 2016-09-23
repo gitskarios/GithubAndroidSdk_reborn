@@ -1,9 +1,24 @@
 package com.alorma.github.sdk.core.datasource;
 
 import com.alorma.github.sdk.core.ApiClient;
+import com.alorma.github.sdk.core.Exclude;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -22,7 +37,11 @@ public abstract class RetrofitWrapper extends RestWrapper {
 
   @Override
   protected <T> T get(ApiClient apiClient) {
-    Gson gson = new GsonBuilder().setLenient().create();
+    GsonBuilder gsonBuilder =  new GsonBuilder();
+    gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer());
+    gsonBuilder.setExclusionStrategies(new AnnotationExclusionStrategy());
+
+    Gson gson = gsonBuilder.setLenient().create();
     Retrofit retrofit = new Retrofit.Builder().baseUrl(apiClient.getApiEndpoint())
         .addConverterFactory(GsonConverterFactory.create(gson))
         .client(getClient())
@@ -86,5 +105,33 @@ public abstract class RetrofitWrapper extends RestWrapper {
       }
     }
     return null;
+  }
+
+  // date deserializer
+  private class DateDeserializer implements JsonDeserializer<Date> {
+    final DateFormat original = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH);
+
+    @Override
+    public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+            throws JsonParseException {
+      Date date = new Date();
+      try {
+        date = original.parse(json.getAsString());
+      } catch (ParseException e) {
+      }
+      return date;
+    }
+  }
+
+  private class AnnotationExclusionStrategy implements ExclusionStrategy {
+    @Override
+    public boolean shouldSkipField(FieldAttributes f) {
+      return f.getAnnotation(Exclude.class) != null;
+    }
+
+    @Override
+    public boolean shouldSkipClass(Class<?> clazz) {
+      return false;
+    }
   }
 }
